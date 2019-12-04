@@ -1,0 +1,17 @@
+
+._h1 {
+	color: red;
+}
+.type{
+	width: 750rpx;
+	height: 100vh;
+	-webkit-box-align: start;
+	-webkit-align-items: flex-start;
+	    -ms-flex-align: start;
+	        align-items: flex-start;
+}
+.tree{
+	width: 750rpx;
+	background-color: #F8F8F8;
+}
+

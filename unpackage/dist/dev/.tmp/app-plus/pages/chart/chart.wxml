@@ -1,0 +1,1 @@
+<view class="type _div" style="display:block;"><lis-tree class="tree" vue-id="1" root="{{root.out}}" checked="{{checked}}" show-checkbox change-handler="{{onChange}}" auto-expand data-com-type="wx" bind:__l="__l"></lis-tree></view>

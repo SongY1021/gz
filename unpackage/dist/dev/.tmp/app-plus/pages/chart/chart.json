@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "图表",
+  "usingComponents": {
+    "lis-tree": "/components/lis-tree/lis-tree"
+  }
+}

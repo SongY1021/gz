@@ -1,0 +1,62 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "明细"
+			}
+		},
+		{
+			"path": "pages/record/record",
+			"style": {
+				"navigationBarTitleText": "记一笔"
+			}
+		},
+		{
+			"path": "pages/chart/chart",
+			"style": {
+				"navigationBarTitleText": "图表"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "易记账",
+		"navigationBarBackgroundColor": "#5D4037",
+		"backgroundColor": "#5D4037",
+		"navigationStyle": "custom",
+		"usingComponents": {
+			"lis-tree": "/components/lis-tree/lis-tree"
+		}
+	},
+	"tabBar":{
+		"color": "#212121",
+		"selectedColor": "#5D4037",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
+		"list":[{
+					"pagePath": "pages/detail/detail",
+					"iconPath": "static/detail1-0.png",
+					"selectedIconPath": "static/detail1-1.png",
+					"text": "明细"
+				},
+				// {
+				// 	"pagePath": "pages/record/record",
+				// 	"iconPath": "static/record.png",
+				// 	"selectedIconPath": "static/record.png",
+				// 	"text": "记一笔"
+				// },
+				{
+					"pagePath": "pages/chart/chart",
+					"iconPath": "static/chart1-0.png",
+					"selectedIconPath": "static/chart1-1.png",
+					"text": "图表"
+				}
+		],
+		"midButton":{
+			"height":"64px",
+			"iconPath":"static/record.png",
+			"iconWidth":"50px"
+		}
+	}
+}

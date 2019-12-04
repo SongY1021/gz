@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/detail/detail",
+    "pages/record/record",
+    "pages/chart/chart"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "易记账",
+    "navigationBarBackgroundColor": "#5D4037",
+    "backgroundColor": "#5D4037",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#212121",
+    "selectedColor": "#5D4037",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/detail/detail",
+        "iconPath": "static/detail1-0.png",
+        "selectedIconPath": "static/detail1-1.png",
+        "text": "明细"
+      },
+      {
+        "pagePath": "pages/chart/chart",
+        "iconPath": "static/chart1-0.png",
+        "selectedIconPath": "static/chart1-1.png",
+        "text": "图表"
+      }
+    ],
+    "midButton": {
+      "height": "64px",
+      "iconPath": "static/record.png",
+      "iconWidth": "50px"
+    }
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "gz",
+  "compilerVersion": "2.4.2",
+  "usingComponents": {
+    "lis-tree": "/components/lis-tree/lis-tree"
+  }
+}

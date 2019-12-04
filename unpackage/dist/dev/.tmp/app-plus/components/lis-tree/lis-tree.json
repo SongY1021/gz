@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "lis-tree": "/components/lis-tree/lis-tree"
+  }
+}

@@ -1,0 +1,27 @@
+.content {
+	flex: 1;
+	width: 750rpx;
+	min-height: 100vh;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	font-size: 1rem;
+}
+.row {
+	flex-direction: row;
+}
+
+.column {
+	flex-direction: column;
+}
+.navget_bar {
+	width: 100%;
+}
+.status_bar {
+	display: block;
+	width: 100%;
+	height: var(--status-bar-height);
+}
+.status-drawer{
+	background-color: #5D4037;
+}

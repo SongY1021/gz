@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/detail/detail",
+    "pages/record/record",
+    "pages/chart/chart"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "易记账",
+    "navigationBarBackgroundColor": "#5D4037",
+    "backgroundColor": "#5D4037",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#212121",
+    "selectedColor": "#5D4037",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/detail/detail",
+        "iconPath": "static/detail-0.png",
+        "selectedIconPath": "static/detail-1.png",
+        "text": "明细"
+      },
+      {
+        "pagePath": "pages/record/record",
+        "iconPath": "static/record.png",
+        "selectedIconPath": "static/record.png",
+        "text": "记一笔"
+      },
+      {
+        "pagePath": "pages/chart/chart",
+        "iconPath": "static/chart-0.png",
+        "selectedIconPath": "static/chart-1.png",
+        "text": "图表"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

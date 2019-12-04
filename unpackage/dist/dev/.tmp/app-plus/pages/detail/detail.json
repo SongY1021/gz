@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "明细",
+  "usingComponents": {
+    "lis-tree": "/components/lis-tree/lis-tree",
+    "uni-icons": "/components/uni-icons/uni-icons",
+    "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar",
+    "uni-drawer": "/components/uni-drawer/uni-drawer",
+    "uni-list": "/components/uni-list/uni-list",
+    "uni-list-item": "/components/uni-list-item/uni-list-item"
+  }
+}
