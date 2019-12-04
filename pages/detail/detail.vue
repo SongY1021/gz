@@ -100,16 +100,20 @@
 					<uni-icons type="back" size="24" @click="closeDrawer('type')" color="#FFFFFF" />
 					类型
 				</view>
-				<!-- <scroll-view class="type" scroll-y="true">
-					<view class="type">
-						<lis-tree class="tree" :root="type.out" :checked="checked"
-						show-checkbox auto-expand></lis-tree>
-					</view>
-				</scroll-view> -->
-				<div class="type">
-					<lis-tree class="tree" :root="type.out" :checked="checked"
+				<view class="type-all">
+					<lis-tree class="tree" :root="type.all" :checked="checked"
 					show-checkbox auto-expand></lis-tree>
-				</div>
+				</view>
+				<scroll-view class="type" scroll-y="true">
+					<div class="type">
+						<view class="type-tip">支出</view>
+						<lis-tree class="tree" :root="type.out" :checked="checked" :change-handler="checkChange" :check-handler="changeAllHandler"
+						show-checkbox auto-expand></lis-tree>
+						<view class="type-tip">收入</view>
+						<lis-tree class="tree" :root="type.in" :checked="checked" :change-handler="checkChange" :check-handler="changeAllHandler"
+						show-checkbox auto-expand></lis-tree>
+					</div>
+				</scroll-view>
 			</view>
 		</uni-drawer>
 	</view>
@@ -149,8 +153,17 @@
 				],
 				multiIndex: [0, 0],
 				type: {
-					out:{
+					all:{
 						children: [{
+								id: 'all',
+								name: '全部',
+								length: 10,
+								check: 0
+						}]
+					},
+					out:{
+						children: [
+							{
 								id: 'canyin',
 								name: '餐饮',
 								children: [{
@@ -431,7 +444,39 @@
 							},
 						]
 					},
-					in:{}
+					in:{
+						children: [
+							{
+								id: 'richangshouru',
+								name: '日常收入',
+								children: [{
+									id: 'gongzixinshui',
+									name: '工资薪水',
+								},{
+									id: 'jianzhiwaikuai',
+									name: '兼职外快',
+								},{
+									id: 'hongbaolixi',
+									name: '利息租金',
+								},{
+									id: 'yuebao',
+									name: '余额宝',
+								},{
+									id: 'gupiaojijin',
+									name: '股票基金',
+								},{
+									id: 'yingyeshouru',
+									name: '营业收入',
+								},{
+									id: 'hongbaolijin',
+									name: '红包礼金',
+								},{
+									id: 'canyinqita',
+									name: '收入其他',
+								} ]
+							}
+						]
+					}
 				},
 				selected: null,
 				checked: [],
@@ -564,6 +609,14 @@
 					this.currentDate=chickDate;
 				}
 				this.$forceUpdate()
+			},
+			checkChange(e){
+				console.info("点击了：");
+				console.info(e);
+			},
+			changeAllHandler(e){
+				console.info("AA点击了：");
+				console.info(e);
 			}
 		},
 		onPullDownRefresh() {
@@ -681,12 +734,24 @@
 	.close .list-tip{
 		margin-top: 15rpx;
 	}
+	.close .type-all{
+		display: flex;
+		font-size: 30rpx;
+		flex-direction: column;
+	}
 	.close .type{
 		display: block;
-		height: 85vh;
+		height: 78vh;
+		/* background-color: #EFEFEF; */
+	}
+	.close .type .type-tip{
+		display: block;
+		padding: 15rpx 18rpx;
+		font-size: 26rpx;
 		background-color: #EFEFEF;
 	}
 	.close .type .tree{
+		font-size: 30rpx;
 		background-color: #F8F8F8;
 	}
 </style>

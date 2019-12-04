@@ -143,12 +143,31 @@
 .close .list-tip{
 	margin-top: 15rpx;
 }
+.close .type-all{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	font-size: 30rpx;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+}
 .close .type{
 	display: block;
-	height: 85vh;
+	height: 78vh;
+	/* background-color: #EFEFEF; */
+}
+.close .type .type-tip{
+	display: block;
+	padding: 15rpx 18rpx;
+	font-size: 26rpx;
 	background-color: #EFEFEF;
 }
 .close .type .tree{
+	font-size: 30rpx;
 	background-color: #F8F8F8;
 }
 

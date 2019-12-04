@@ -12,12 +12,12 @@
 	border: none;
 }
 .uni-tree-item-checkbox-icon {
-	width: 40rpx;
-	height: 40rpx;
+	width: 36rpx;
+	height: 36rpx;
 }
 .uni-tree-item-radio-icon {
-	width: 40rpx;
-	height: 40rpx;
+	width: 36rpx;
+	height: 36rpx;
 }
 .uni-tree-item-checkbox-wrapper {
 	display: -webkit-box;

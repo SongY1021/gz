@@ -70,6 +70,10 @@
 				type: Function,
 				default: () => () => {},
 			},
+			checkHandler: {
+				type: Function,
+				default: () => () => {},
+			},
 			// #endif
 			// #ifdef H5
 			hasChildren: {
@@ -91,6 +95,10 @@
 			changeHandler: {
 				type: Function,
 				default: () => {},
+			},
+			checkHandler: {
+				type: Function,
+				default: () => () => {},
 			},
 			// #endif
 			selected: {
@@ -120,6 +128,11 @@
 			return {
 				currentLevelData: [],
 				innerExpand: [],
+				all:{
+					id: 'all',
+					length: 10,
+					check: 0
+				},
 			}
 		},
 		mounted() {
@@ -128,10 +141,12 @@
 					item,
 					handler
 				}) => {
+					console.info("CCCCCCCCC====")
 					handler.call(this, item)
 					this.$nextTick(() => {
 						this.setCurrentLevelData()
 						this.changeHandler(this.getChecked())
+						this.checkHandler(this)
 					})
 				})
 			}
@@ -213,12 +228,15 @@
 				// #endif
 
 				if (this.level === 0) {
+					console.info("AAAAAAAA====")
 					const id = this.getId(item)
 					const target = this.getItemById(id)
 
 					handler.call(this, target)
 					this.changeHandler(this.getChecked())
+					this.checkHandler(item)
 				} else {
+					console.info("BBBBBBBB====")
 					this.$emit('on-change', {
 						item,
 						handler
@@ -331,6 +349,14 @@
 					this.upStreamCheck(parent)
 				}
 			},
+			upAllSelect(e) {
+				console.info("选择：");
+				if(e){
+					console.info(++this.all.check);
+				}else{
+					console.info(--this.all.check);
+				}
+			},
 			upStreamCheck(node) {
 				if (node) {
 					const parent = this.getItemById(node._parent)
@@ -342,6 +368,7 @@
 					const indeterminated = children.filter(it => it._indeterminate)
 					this.$set(parent, '_checked', checked.length === children.length)
 					this.$set(parent, '_indeterminate', !parent._checked && (indeterminated.length > 0 || checked.length > 0))
+					// this.upAllSelect(checked.length === children.length);
 					this.upStreamCheck(parent)
 				}
 			},
@@ -352,6 +379,7 @@
 						this.$set(item, '_indeterminate', false)
 						this.downStreamCheck(item)
 					}
+					this.upAllSelect(node._checked);
 				}
 			},
 			isChecked(item) {
@@ -373,9 +401,9 @@
 			isSame(itemA, itemB) {
 				return this.getId(itemA) === this.getId(itemB)
 			},
-			canShowCheckbox(item) {
+			canShowCheckbox(item) {//是否显示复选框
 				if (this.showCheckbox) {
-					if (this.leafOnly) {
+					if (this.leafOnly) { //  checkbox 或 radio 是否只显示叶子节点
 						return !this.hasChildren(item)
 					}
 					return true
@@ -413,21 +441,27 @@
 			},
 			handleToggleCheck(item) {
 				const self = this
-				console.info("VVVVVVVVVVVVVVVVVVVVVVVVVVV");
-				console.info(item);
-				console.info("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-				this.$emit('on-change', {
-					item,
-					handler: function(item) {
-						this.$set(item, '_checked', !item._checked)
-						this.$set(item, '_indeterminate', false)
-						this.upStreamCheck(item)
-						this.downStreamCheck(item)
-						this.$nextTick(() => {
-							this.setCurrentLevelData.call(self)
-						})
-					}
-				})
+				if(item.id == 'all'){
+					console.info("VVVVVVVVVVVVVVVVVVVVVVVVVVV");
+					console.info(item.id);
+					console.info(item.name);
+					console.info(item.length);
+					console.info(item.check);
+					console.info("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+				}else{
+					this.$emit('on-change', {
+						item,
+						handler: function(item) {
+							this.$set(item, '_checked', !item._checked)
+							this.$set(item, '_indeterminate', false)
+							this.upStreamCheck(item)
+							this.downStreamCheck(item)
+							this.$nextTick(() => {
+								this.setCurrentLevelData.call(self)
+							})
+						}
+					})
+				}
 			},
 			handleToggleSelect(item) {
 				const self = this
@@ -489,13 +523,13 @@
 	}
 
 	.uni-tree-item-checkbox-icon {
-		width: 40rpx;
-		height: 40rpx;
+		width: 36rpx;
+		height: 36rpx;
 	}
 
 	.uni-tree-item-radio-icon {
-		width: 40rpx;
-		height: 40rpx;
+		width: 36rpx;
+		height: 36rpx;
 	}
 
 	.uni-tree-item-checkbox-wrapper {
