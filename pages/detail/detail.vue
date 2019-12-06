@@ -611,12 +611,8 @@
 				this.$forceUpdate()
 			},
 			checkChange(e){
-				console.info("点击了：");
-				console.info(e);
 			},
 			changeAllHandler(e){
-				console.info("AA点击了：");
-				console.info(e);
 			}
 		},
 		onPullDownRefresh() {

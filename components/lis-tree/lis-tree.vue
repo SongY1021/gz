@@ -131,7 +131,8 @@
 				all:{
 					id: 'all',
 					length: 10,
-					check: 0
+					check: 0,
+					indeterminate: 0
 				},
 			}
 		},
@@ -141,12 +142,10 @@
 					item,
 					handler
 				}) => {
-					console.info("CCCCCCCCC====")
 					handler.call(this, item)
 					this.$nextTick(() => {
 						this.setCurrentLevelData()
 						this.changeHandler(this.getChecked())
-						this.checkHandler(this)
 					})
 				})
 			}
@@ -228,15 +227,12 @@
 				// #endif
 
 				if (this.level === 0) {
-					console.info("AAAAAAAA====")
 					const id = this.getId(item)
 					const target = this.getItemById(id)
 
 					handler.call(this, target)
 					this.changeHandler(this.getChecked())
-					this.checkHandler(item)
 				} else {
-					console.info("BBBBBBBB====")
 					this.$emit('on-change', {
 						item,
 						handler
@@ -349,12 +345,16 @@
 					this.upStreamCheck(parent)
 				}
 			},
-			upAllSelect(e) {
+			upAllSelect(e, t) {
 				console.info("选择：");
-				if(e){
-					console.info(++this.all.check);
+				if(t == 1){
+					if(e){
+						console.info(++this.all.check);
+					}else{
+						console.info(--this.all.check);
+					}
 				}else{
-					console.info(--this.all.check);
+					console.info(e);
 				}
 			},
 			upStreamCheck(node) {
@@ -366,9 +366,16 @@
 					const children = this.getChildren(parent)
 					const checked = children.filter(it => it._checked)
 					const indeterminated = children.filter(it => it._indeterminate)
+					const p_checked = parent._checked;
+					const p_indeterminate = parent._indeterminate;
 					this.$set(parent, '_checked', checked.length === children.length)
 					this.$set(parent, '_indeterminate', !parent._checked && (indeterminated.length > 0 || checked.length > 0))
-					// this.upAllSelect(checked.length === children.length);
+					if(p_checked || checked.length === children.length){
+						this.upAllSelect(checked.length === children.length, 1);
+					}
+					if(!p_indeterminate == (indeterminated.length > 0 || checked.length > 0)){
+						this.upAllSelect((indeterminated.length > 0 || checked.length > 0), 0);
+					}
 					this.upStreamCheck(parent)
 				}
 			},
@@ -379,7 +386,8 @@
 						this.$set(item, '_indeterminate', false)
 						this.downStreamCheck(item)
 					}
-					this.upAllSelect(node._checked);
+					console.info("================");
+					this.upAllSelect(node._checked,1);
 				}
 			},
 			isChecked(item) {
