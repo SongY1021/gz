@@ -100,18 +100,18 @@
 					<uni-icons type="back" size="24" @click="closeDrawer('type')" color="#FFFFFF" />
 					类型
 				</view>
-				<view class="type-all">
+				<!-- <view class="type-all">
 					<lis-tree class="tree" :root="type.all" :checked="checked"
 					show-checkbox auto-expand></lis-tree>
-				</view>
+				</view> -->
 				<scroll-view class="type" scroll-y="true">
 					<div class="type">
-						<view class="type-tip">支出</view>
+						<!-- <view class="type-tip">支出</view> -->
 						<lis-tree class="tree" :root="type.out" :checked="checked" :change-handler="checkChange" :check-handler="changeAllHandler"
-						show-checkbox auto-expand></lis-tree>
-						<view class="type-tip">收入</view>
+						show-checkbox show-tip auto-expand></lis-tree>
+						<!-- <view class="type-tip">收入</view>
 						<lis-tree class="tree" :root="type.in" :checked="checked" :change-handler="checkChange" :check-handler="changeAllHandler"
-						show-checkbox auto-expand></lis-tree>
+						show-checkbox auto-expand></lis-tree> -->
 					</div>
 				</scroll-view>
 			</view>
@@ -153,19 +153,21 @@
 				],
 				multiIndex: [0, 0],
 				type: {
-					all:{
-						children: [{
-								id: 'all',
-								name: '全部',
-								length: 10,
-								check: 0
-						}]
-					},
 					out:{
+						showAll: true,
+						all:{
+							id: 'all',
+							name: '全部',
+							length: 10,
+							check: 0,
+							_checked: true
+						},
 						children: [
 							{
 								id: 'canyin',
 								name: '餐饮',
+								tip: '支出',
+								showTip: true,
 								children: [{
 									id: 'zaocan',
 									name: '早餐',
@@ -442,6 +444,37 @@
 									name: '投资其他'
 								}]
 							},
+							{
+								id: 'richangshouru',
+								name: '日常收入',
+								tip: '收入',
+								showTip: true,
+								children: [{
+									id: 'gongzixinshui',
+									name: '工资薪水',
+								},{
+									id: 'jianzhiwaikuai',
+									name: '兼职外快',
+								},{
+									id: 'hongbaolixi',
+									name: '利息租金',
+								},{
+									id: 'yuebao',
+									name: '余额宝',
+								},{
+									id: 'gupiaojijin',
+									name: '股票基金',
+								},{
+									id: 'yingyeshouru',
+									name: '营业收入',
+								},{
+									id: 'hongbaolijin',
+									name: '红包礼金',
+								},{
+									id: 'canyinqita',
+									name: '收入其他',
+								} ]
+							}
 						]
 					},
 					in:{
@@ -449,6 +482,8 @@
 							{
 								id: 'richangshouru',
 								name: '日常收入',
+								tip: '收入',
+								showTip: true,
 								children: [{
 									id: 'gongzixinshui',
 									name: '工资薪水',

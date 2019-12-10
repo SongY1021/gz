@@ -3,6 +3,12 @@
 	display: block;
 	width: 60vw;
 }
+.type-tip{
+	display: block;
+	padding: 15rpx 18rpx;
+	font-size: 26rpx;
+	background-color: #EFEFEF;
+}
 .uni-tree-item {
 	padding: 30rpx 15rpx;
 	border-top: #E8E8E8 solid 1rpx;

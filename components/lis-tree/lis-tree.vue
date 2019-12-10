@@ -1,6 +1,23 @@
 <template>
 	<div class="uni-tree">
+		<div class="uni-tree-item" :key="getId(root.all)" v-if="root.showAll && level == 0">
+			<div class="uni-tree-item-self">
+				<div class="uni-tree-item-checkbox-wrapper" v-if="canShowCheckbox(root.all)" @click="handleToggleCheck(all)">
+					<image class="uni-tree-item-checkbox-icon" :src="`/static/checkbox-2.png`" v-if="all._checked"></image>
+					<image class="uni-tree-item-checkbox-icon" :src="`/static/checkbox-1.png`" v-else-if="all._indeterminate"></image>
+					<image class="uni-tree-item-checkbox-icon" :src="`/static/checkbox-0.png`" v-else></image>
+				</div>
+				<div v-if="canShowRadio(root.all)" class="uni-tree-item-radio-wrapper" @click="handleToggleSelect(root.all)">
+					<image class="uni-tree-item-radio-icon" :src="`/static/lis-tree/selected.png`" v-if="root.all._selected"></image>
+					<image class="uni-tree-item-radio-icon" :src="`/static/lis-tree/unselected.png`" v-else></image>
+				</div>
+				<div class="uni-tree-item-name-wrapper" @click="handleToggleExpand(root.all)">
+					<span class="uni-tree-item-name">{{root.all.name}}</span>
+				</div>
+			</div>
+		</div>
 		<template v-for="(item, index) in getChildren(parent || root)">
+			<div class="type-tip" v-if="canShowTip(item)">{{item.tip}}</div>
 			<div class="uni-tree-item" :key="getId(item)">
 				<div class="uni-tree-item-self">
 					<div class="uni-tree-item-checkbox-wrapper" v-if="canShowCheckbox(item)" @click="handleToggleCheck(currentLevelData[index])">
@@ -128,12 +145,7 @@
 			return {
 				currentLevelData: [],
 				innerExpand: [],
-				all:{
-					id: 'all',
-					length: 10,
-					check: 0,
-					indeterminate: 0
-				},
+				all:{},
 			}
 		},
 		mounted() {
@@ -207,6 +219,7 @@
 					})
 				}
 				this.setCurrentLevelData()
+				this.all = this.root
 			},
 			setCurrentLevelData() {
 				this.currentLevelData = this.getChildren(this.parent || this.root)
@@ -347,11 +360,12 @@
 			},
 			upAllSelect(e, t) {
 				console.info("选择：");
+				
 				if(t == 1){
 					if(e){
-						console.info(++this.all.check);
+						console.info(++this.all.all.check);
 					}else{
-						console.info(--this.all.check);
+						console.info(--this.all.all.check);
 					}
 				}else{
 					console.info(e);
@@ -409,6 +423,12 @@
 			isSame(itemA, itemB) {
 				return this.getId(itemA) === this.getId(itemB)
 			},
+			canShowTip(item){//是否显示分组信息
+				if(item.showTip){
+					return true;
+				}
+				return false;
+			},
 			canShowCheckbox(item) {//是否显示复选框
 				if (this.showCheckbox) {
 					if (this.leafOnly) { //  checkbox 或 radio 是否只显示叶子节点
@@ -448,28 +468,18 @@
 				})
 			},
 			handleToggleCheck(item) {
-				const self = this
-				if(item.id == 'all'){
-					console.info("VVVVVVVVVVVVVVVVVVVVVVVVVVV");
-					console.info(item.id);
-					console.info(item.name);
-					console.info(item.length);
-					console.info(item.check);
-					console.info("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-				}else{
-					this.$emit('on-change', {
-						item,
-						handler: function(item) {
-							this.$set(item, '_checked', !item._checked)
-							this.$set(item, '_indeterminate', false)
-							this.upStreamCheck(item)
-							this.downStreamCheck(item)
-							this.$nextTick(() => {
-								this.setCurrentLevelData.call(self)
-							})
-						}
-					})
-				}
+				this.$emit('on-change', {
+					item,
+					handler: function(item) {
+						this.$set(item, '_checked', !item._checked)
+						this.$set(item, '_indeterminate', false)
+						this.upStreamCheck(item)
+						this.downStreamCheck(item)
+						this.$nextTick(() => {
+							this.setCurrentLevelData.call(self)
+						})
+					}
+				})
 			},
 			handleToggleSelect(item) {
 				const self = this
@@ -520,7 +530,12 @@
 		display: block;
 		width: 60vw;
 	}
-
+	.type-tip{
+		display: block;
+		padding: 15rpx 18rpx;
+		font-size: 26rpx;
+		background-color: #EFEFEF;
+	}
 	.uni-tree-item {
 		padding: 30rpx 15rpx;
 		border-top: #E8E8E8 solid 1rpx;
